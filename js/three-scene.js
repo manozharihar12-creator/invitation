@@ -169,9 +169,10 @@ if (!canvas) {
   const groomGroup = makeCharacter({
     url: "/assets/groom.png?v=2",
     x: isMobile ? 0.52 : 1.15,
-    y: isMobile ? -0.3 : -0.02,
+    y: isMobile ? -0.15 : -0.02,
     z: 0.25,
-    w: charW, h: charH,
+    w: isMobile ? charW * 1.1 : charW,
+    h: isMobile ? charH * 1.1 : charH,
     name: "groom"
   });
 

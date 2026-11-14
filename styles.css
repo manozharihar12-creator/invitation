@@ -446,6 +446,10 @@ html.offline-cutouts-visible .offline-cutouts { display: flex; }
     width: 56%;
     max-height: 80%;
   }
+  .offline-cutouts img:nth-child(2) {
+    transform: translateY(-10px) scale(1.1);
+    transform-origin: bottom right;
+  }
 }
 
 /* journey-stage gets perspective for 3D children but still exact layout */
