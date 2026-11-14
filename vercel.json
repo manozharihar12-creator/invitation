@@ -1,6 +1,21 @@
 {
   "version": 2,
   "installCommand": "npm install",
+  "functions": {
+    "server.js": {
+      "includeFiles": [
+        "index.html",
+        "favicon.ico",
+        "styles.css",
+        "styles-exact.css",
+        "robots.txt",
+        "sitemap.xml",
+        "package.json",
+        "js/**",
+        "public/**"
+      ]
+    }
+  },
   "rewrites": [
     { "source": "/health", "destination": "/api/health" },
     { "source": "/api/cdn/:path*", "destination": "/api/cdn?path=:path*" }
