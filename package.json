@@ -1,0 +1,21 @@
+{
+  "name": "mamatharun-wedding",
+  "version": "1.0.0",
+  "description": "Mamatha & Tarun Kumar — Wedding invitation site — Where Forever Begins",
+  "private": true,
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "serve": "node server.js",
+    "lint": "echo \"no lint configured\"",
+    "check": "node -c server.js && echo \"server.js syntax ok\""
+  },
+  "keywords": ["wedding", "invitation", "threejs", "film-reel"],
+  "author": "Mamatha & Tarun Kumar",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

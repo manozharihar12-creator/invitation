@@ -1,0 +1,52 @@
+# Example Nginx reverse-proxy + static fallback for mamatharun
+# Place this in /etc/nginx/sites-available/mamatharun and symlink to sites-enabled
+
+server {
+    listen 80;
+    server_name your-domain.com www.your-domain.com;
+
+    root /var/www/mamatharun;
+    index index.html;
+
+    # Security headers
+    add_header X-Content-Type-Options nosniff;
+    add_header X-Frame-Options SAMEORIGIN;
+    add_header Referrer-Policy strict-origin-when-cross-origin;
+
+    # Proxy CDN iframe frames — fixes CORS (same as /api/cdn in Node)
+    location /api/cdn/ {
+        proxy_pass https://cdn.riwaaz.in/wedding-websites/themes/rameswaram/;
+        proxy_set_header Host cdn.riwaaz.in;
+        proxy_set_header Referer https://demos.riwaaz.in/rameswaram/;
+        proxy_set_header User-Agent "Mozilla/5.0 (MamathaTarunWedding/1.0)";
+        proxy_cache_valid 200 1h;
+        add_header Access-Control-Allow-Origin *;
+    }
+
+    # Static assets — long cache in prod
+    location ~* \.(webp|jpg|jpeg|png|svg|woff2|woff)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        try_files $uri =404;
+    }
+
+    location ~* \.(css|js)$ {
+        expires 1h;
+        add_header Cache-Control "public, must-revalidate";
+        try_files $uri =404;
+    }
+
+    location = /health {
+        access_log off;
+        return 200 '{"status":"ok"}';
+        add_header Content-Type application/json;
+    }
+
+    # SPA fallback
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    access_log /var/log/nginx/mamatharun.access.log;
+    error_log /var/log/nginx/mamatharun.error.log;
+}
