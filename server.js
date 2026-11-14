@@ -182,7 +182,7 @@ const handler = (req, res) => {
   }
 
   // --- CDN proxy route ---
-  if (p.startsWith('/api/cdn/')) {
+  if (p.startsWith('/api/cdn/') || p === '/api/cdn') {
     if (req.method === 'OPTIONS') {
       res.writeHead(204, {
         'Access-Control-Allow-Origin': '*',
@@ -193,8 +193,28 @@ const handler = (req, res) => {
       res.end();
       return;
     }
-    const cdnPath = p.replace('/api/cdn', ''); // /frames/...
-    proxyToCDN(cdnPath + qs, res);
+    let cdnPath;
+    let cdnQuery = qs;
+    if (p === '/api/cdn') {
+      const cdnUrl = new URL(rawUrl, 'http://localhost');
+      cdnPath = cdnUrl.searchParams.get('path') || (req.query && req.query.path);
+      if (!cdnPath) {
+        res.writeHead(400, { 'Content-Type': 'text/plain', ...SECURITY_HEADERS });
+        res.end('Missing CDN path');
+        return;
+      }
+      if (!cdnPath.startsWith('/')) cdnPath = '/' + cdnPath;
+      if (cdnPath.includes('..') || cdnPath.includes('://')) {
+        res.writeHead(400, { 'Content-Type': 'text/plain', ...SECURITY_HEADERS });
+        res.end('Bad CDN path');
+        return;
+      }
+      cdnUrl.searchParams.delete('path');
+      cdnQuery = cdnUrl.search;
+    } else {
+      cdnPath = p.replace('/api/cdn', '');
+    }
+    proxyToCDN(cdnPath + cdnQuery, res);
     return;
   }
 
