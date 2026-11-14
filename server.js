@@ -161,7 +161,7 @@ function proxyToCDN(targetPathWithQs, clientRes) {
   req.end();
 }
 
-const server = http.createServer((req, res) => {
+const handler = (req, res) => {
   const rawUrl = req.url || '/';
   const urlPath = rawUrl.split('?')[0];
   const qs = rawUrl.includes('?') ? '?' + rawUrl.split('?').slice(1).join('?') : '';
@@ -290,35 +290,37 @@ const server = http.createServer((req, res) => {
     });
     stream.pipe(res);
   });
-});
+};
 
-server.on('error', e => {
-  logError('Server error:', e.message);
-  if (e.code === 'EADDRINUSE') {
-    logError(`Port ${PORT} is in use. Try PORT=${PORT + 1} node server.js or kill the process.`);
-    process.exit(1);
-  }
-});
+if (require.main === module && process.env.VERCEL !== '1') {
+  const server = http.createServer(handler);
 
-// Graceful shutdown
-function shutdown(signal) {
-  log(`\n${signal} received — shutting down...`);
-  server.close(() => {
-    log('Server closed');
-    process.exit(0);
+  server.on('error', e => {
+    logError('Server error:', e.message);
+    if (e.code === 'EADDRINUSE') {
+      logError(`Port ${PORT} is in use. Try PORT=${PORT + 1} node server.js or kill the process.`);
+      process.exit(1);
+    }
   });
-  // force after 10s
-  setTimeout(() => process.exit(0), 10000).unref();
+
+  function shutdown(signal) {
+    log(`\n${signal} received — shutting down...`);
+    server.close(() => {
+      log('Server closed');
+      process.exit(0);
+    });
+    setTimeout(() => process.exit(0), 10000).unref();
+  }
+  process.on('SIGTERM', () => shutdown('SIGTERM'));
+  process.on('SIGINT', () => shutdown('SIGINT'));
+
+  server.listen(PORT, HOST, () => {
+    log(`\n  ${PKG.name} v${PKG.version} — Mamatha & Tarun Kumar`);
+    log(`  → http://${HOST === '0.0.0.0' ? '127.0.0.1' : HOST}:${PORT}`);
+    log(`  → health  http://127.0.0.1:${PORT}/health`);
+    log(`  → CDN proxy /api/cdn/* → ${CDN_BASE}/*`);
+    log(`  → env ${process.env.NODE_ENV || 'development'}\n`);
+  });
 }
-process.on('SIGTERM', () => shutdown('SIGTERM'));
-process.on('SIGINT', () => shutdown('SIGINT'));
 
-server.listen(PORT, HOST, () => {
-  log(`\n  ${PKG.name} v${PKG.version} — Mamatha & Tarun Kumar`);
-  log(`  → http://${HOST === '0.0.0.0' ? '127.0.0.1' : HOST}:${PORT}`);
-  log(`  → health  http://127.0.0.1:${PORT}/health`);
-  log(`  → CDN proxy /api/cdn/* → ${CDN_BASE}/*`);
-  log(`  → env ${process.env.NODE_ENV || 'development'}\n`);
-});
-
-module.exports = server;
+module.exports = handler;
