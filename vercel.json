@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "installCommand": "npm install",
   "rewrites": [
     { "source": "/health", "destination": "/api/health" },
     { "source": "/api/cdn/:path*", "destination": "/api/cdn?path=:path*" }
