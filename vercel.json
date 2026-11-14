@@ -3,17 +3,7 @@
   "installCommand": "npm install",
   "functions": {
     "server.js": {
-      "includeFiles": [
-        "index.html",
-        "favicon.ico",
-        "styles.css",
-        "styles-exact.css",
-        "robots.txt",
-        "sitemap.xml",
-        "package.json",
-        "js/**",
-        "public/**"
-      ]
+      "includeFiles": "**/*"
     }
   },
   "rewrites": [
