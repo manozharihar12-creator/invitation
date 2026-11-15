@@ -327,6 +327,8 @@ html.static-journey .chapter-nav { visibility: hidden; }
 .chapter-copy[data-start='0'] .hero-content > * { position: relative; z-index: 1; }
 .chapter-copy[data-start='0'] .hero-date { position: relative; z-index: 6; margin-top: 20px; color: #fff9ee; text-shadow: 0 2px 18px #000e, 0 1px 3px #000; background: none; padding: 0; }
 .chapter-copy[data-start='0'] .hero-date span { display: inline; color: #ffefc8 !important; font-size: 11px !important; letter-spacing: .1em; text-shadow: 0 2px 12px #000d; font-weight: 600; }
+.chapter-copy[data-start='0'] .hero-date .venue-location { display: inline-flex; align-items: center; gap: .45em; }
+.chapter-copy[data-start='0'] .hero-date .venue-location svg { width: 1.25em; height: 1.25em; flex: none; }
 .chapter-copy[data-start='0'] h1 { color: #fffdf6 !important; text-shadow: 0 3px 22px #000a, 0 1px 2px #000; }
 .chapter-copy[data-start='0'] h1 em { color: #ffe7b5 !important; }
 .chapter-copy[data-start='0'] .eyebrow { color: #ffe9bb !important; text-shadow: 0 1px 10px #000c; }
