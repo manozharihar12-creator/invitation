@@ -325,14 +325,12 @@ html.static-journey .chapter-nav { visibility: hidden; }
 .chapter-copy[data-start='0']::before { background: linear-gradient(180deg, #0d121447, transparent 55%); }
 .chapter-copy[data-start='0'] .hero-content { position: relative; z-index: 5; isolation: isolate; }
 .chapter-copy[data-start='0'] .hero-content > * { position: relative; z-index: 1; }
-.chapter-copy[data-start='0'] .hero-date { position: relative; z-index: 6; margin-top: 20px; color: #fff9ee; text-shadow: 0 2px 18px #000e, 0 1px 3px #000; background: none; padding: 0; }
-.chapter-copy[data-start='0'] .hero-date span { display: inline; color: #ffefc8 !important; font-size: 11px !important; letter-spacing: .1em; text-shadow: 0 2px 12px #000d; font-weight: 600; }
-.chapter-copy[data-start='0'] .hero-date .venue-location { display: inline-flex; align-items: center; gap: .45em; }
-.chapter-copy[data-start='0'] .hero-date .venue-location svg { width: 1.25em; height: 1.25em; flex: none; }
+.chapter-copy[data-start='0'] .hero-date { position: relative; z-index: 6; margin-top: 20px; color: #211f1a !important; text-shadow: 0 1px 4px #fff9; background: none; padding: 0; }
+.chapter-copy[data-start='0'] .hero-date span { display: inline; color: #211f1a !important; font-size: 11px !important; letter-spacing: .1em; text-shadow: 0 1px 4px #fff9; font-weight: 600; }
 .chapter-copy[data-start='0'] h1 { color: #fffdf6 !important; text-shadow: 0 3px 22px #000a, 0 1px 2px #000; }
 .chapter-copy[data-start='0'] h1 em { color: #ffe7b5 !important; }
 .chapter-copy[data-start='0'] .eyebrow { color: #ffe9bb !important; text-shadow: 0 1px 10px #000c; }
-.chapter-copy[data-start='0'] .copy-note { color: #fff7e7 !important; text-shadow: 0 2px 14px #000a; }
+.chapter-copy[data-start='0'] .copy-note { color: #211f1a !important; text-shadow: 0 1px 4px #fff9; }
 .chapter-copy[data-start='7'], .chapter-copy[data-start='15.5'] { justify-content: flex-end; padding-bottom: 13svh; }
 .chapter-copy[data-start='7']::before, .chapter-copy[data-start='15.5']::before { background: linear-gradient(0deg, #100c0aab, transparent 65%); }
 .chapter-copy[data-start='26.5'] { justify-content: flex-end; padding-bottom: 12svh; }
@@ -341,6 +339,10 @@ html.static-journey .chapter-nav { visibility: hidden; }
 .chapter-copy[data-start='37']::before { background: linear-gradient(180deg, #1419168c, transparent 85%); }
 .chapter-copy[data-start='44'] { justify-content: flex-end; padding-bottom: 13svh; }
 .chapter-copy[data-start='44']::before { background: linear-gradient(0deg, #0b1115bb, transparent 95%); }
+.chapter-copy[data-start='44'] .final-actions { display: flex; flex-direction: column; align-items: center; gap: 0; margin-top: 14px; width: 100%; }
+.chapter-copy[data-start='44'] .venue-contact-actions { display: flex; align-items: center; gap: 10px; flex: none; }
+.chapter-copy[data-start='44'] .venue-button { gap: 8px; }
+.chapter-copy[data-start='44'] .venue-button img { width: 18px; height: 18px; flex: none; }
 .film-events { margin-top: 20px; display: grid; gap: 12px; text-align: left; }
 .film-events p { font: 18px var(--serif); color: #fff7e8; text-shadow: 0 1px 10px #000; }
 .film-events span { display: inline-block; width: 150px; color: #e7cfaa; font: 9px var(--sans); letter-spacing: .06em; text-transform: uppercase; }
@@ -390,6 +392,11 @@ body { background: var(--ink); }
 .journey-stage { height: 100dvh; }
 .site-header { justify-content: flex-end; }
 .header-place { margin-right: auto; }
+.header-actions { display: flex; align-items: center; gap: 16px; }
+.header-location { width: 44px; justify-content: center; }
+.header-location svg { width: 18px; height: 18px; flex: none; }
+.header-contact { border: 0; background: transparent; cursor: pointer; }
+.header-contact svg { flex: none; }
 .hero-content { display: flex; flex-direction: column; align-items: center; width: 100%; transform-origin: 50% 0; }
 .hero-depth { will-change: clip-path; }
 .hero-depth h1 { color: #402822; font-weight: 500; text-shadow: 0 1px 1px #fff6; }
@@ -406,6 +413,12 @@ body { background: var(--ink); }
 #wedding-details h3 { font-size: 28px; }
 @media (min-width: 700px) and (min-height: 601px) {
   .chapter-copy.hero-depth { padding-top: 10svh; }
+}
+@media (max-width: 699px) {
+  .site-header { padding-right: 14px; padding-left: 14px; }
+  .header-actions { gap: 8px; }
+  .header-contact { width: 44px; justify-content: center; }
+  .header-contact-label { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .journey { height: auto; }

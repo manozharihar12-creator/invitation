@@ -15,13 +15,7 @@ node server.js
 
 Zero deps — pure Node `http` + `https` proxy.
 
-Env:
 
-```
-PORT=3000 HOST=0.0.0.0 NODE_ENV=production
-CDN_BASE=https://cdn.riwaaz.in/wedding-websites/themes/rameswaram
-LOG_LEVEL=silent|info|debug
-```
 
 ## Production ready — what was hardened
 
