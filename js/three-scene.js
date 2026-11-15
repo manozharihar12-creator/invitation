@@ -171,8 +171,8 @@ if (!canvas) {
     x: isMobile ? 0.52 : 1.15,
     y: isMobile ? -0.15 : -0.02,
     z: 0.25,
-    w: isMobile ? charW * 1.1 : charW,
-    h: isMobile ? charH * 1.1 : charH,
+    w: isMobile ? charW * .9 : charW,
+    h: isMobile ? charH * .9 : charH,
     name: "groom"
   });
 
